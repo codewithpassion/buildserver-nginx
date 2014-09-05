@@ -1,0 +1,22 @@
+server {
+        error_log   /var/log/nginx/error.log error;
+        listen      80;
+        server_name build.openrov.com;
+
+        location ~* (/jenkins) {
+           expires epoch;
+           proxy_no_cache 1;
+           proxy_pass http://localhost:8080;
+        }
+
+	location ~* (/debian) {
+           expires epoch;
+           proxy_no_cache 1;
+           proxy_pass http://openrov-deb-repository.s3.amazonaws.com;
+	}
+
+        location / {
+            proxy_pass http://localhost:8080;
+        }
+
+}
