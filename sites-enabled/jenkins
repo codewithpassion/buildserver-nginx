@@ -5,18 +5,18 @@ server {
 
         location ~* (/jenkins) {
            expires epoch;
-           proxy_no_cache 1;
-           proxy_pass http://localhost:8080;
+           proxy_cache_bypass 1;
+           proxy_pass http://build.openrov.com:8080;
         }
 
 	location ~* (/debian) {
            expires epoch;
-           proxy_no_cache 1;
+           proxy_cache_bypass 1;
            proxy_pass http://openrov-deb-repository.s3.amazonaws.com;
 	}
 
         location / {
-            proxy_pass http://localhost:8080;
+            proxy_pass http://build.openrov.com:8080;
         }
 
 }
